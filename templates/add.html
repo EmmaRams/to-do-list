@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Task</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Add New Task</h1>
+            <a href="/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </header>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" name="title" class="input-field" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="input-field" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" class="input-field">
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="shopping">Shopping</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Due Date *</label>
+                        <input 
+                            type="date" 
+                            name="due_date" 
+                            class="input-field"
+                            required
+                            min="{{ datetime.now().date().isoformat() }}"
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Task
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
