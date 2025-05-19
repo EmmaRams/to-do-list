@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Todo List</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-tasks"></i> Smart Todo</h1>
+            <a href="/add" class="btn btn-primary">
+                <i class="fas fa-plus"></i> New Task
+            </a>
+        </header>
+
+        <div class="task-list">
+            {% if not tasks %}
+                <div class="empty-state">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>All tasks complete!</h3>
+                    <p>Add a new task to get started</p>
+                </div>
+            {% else %}
+                {% for task in tasks %}
+                <div class="task-card">
+                    <div class="task-content">
+                        <h3>{{ task.title }}</h3>
+                        {% if task.description %}
+                        <p class="task-description">{{ task.description }}</p>
+                        {% endif %}
+                        <div class="task-meta">
+                            <span class="category {{ task.category }}">
+                                <i class="fas fa-tag"></i>
+                                {{ task.category|capitalize }}
+                            </span>
+                            <span class="due-date">
+                                <i class="fas fa-calendar-day"></i>
+                                {% if task.due_date and task.due_date is string %}
+                                    {{ datetime.fromisoformat(task.due_date).strftime('%b %d, %Y') }}
+                                {% else %}
+                                    No due date
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <form action="/delete/{{ task.id }}" method="POST">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
